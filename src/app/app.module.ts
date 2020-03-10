@@ -1,3 +1,4 @@
+import { ProductDetailGuard } from './products/product-detail.guard';
 import { WelcomeComponent } from './home/welcome.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './products/product.service';
@@ -27,7 +28,10 @@ import { ProductDetailComponent } from './products/product-detail.component';
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'products', component: ProductListComponent },
-      { path: 'products/:id', component: ProductDetailComponent },
+      {
+        path: 'products/:id',
+        canActivate: [ ProductDetailGuard ],
+        component: ProductDetailComponent },
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
