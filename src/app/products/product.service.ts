@@ -1,4 +1,4 @@
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, filter, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, RootRenderer } from '@angular/core';
@@ -17,6 +17,13 @@ export class ProductService {
       tap(data => console.log(`All: ${JSON.stringify(data)}`)),
       catchError(this.handleError)
     );
+  }
+
+  getProduct(id: number): Observable<IProduct | undefined> {
+    return this.getProducts()
+      .pipe(
+        map((products: IProduct[]) => products.find(p => p.productId === id))
+      );
   }
 
   private handleError(err: HttpErrorResponse) {

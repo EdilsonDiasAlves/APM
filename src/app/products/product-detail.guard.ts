@@ -16,7 +16,7 @@ export class ProductDetailGuard implements CanActivate {
       alert('Invalid Product Id');
       this.router.navigate(['/products']);
       return false;
-    };
+    }
     return true;
   }
 
